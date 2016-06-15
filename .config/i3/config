@@ -39,14 +39,15 @@ smart_gaps on
 
 ## Workspaces
 set $work1 " 1"
-set $work2 " 2"
-set $work3 " 3"
+set $work2 " 2"
+set $work3 " 3"
 set $work4 "4"
 set $work5 "5"
 set $work6 "6"
-set $work7 " 7"
-set $work8 " 8"
-set $work9 " 9"
+set $work7 " 7"
+set $work8 "8"
+set $work9 " 9"
+set $work0 " 0"
 
 ## Startup applications
 exec_always feh --bg-scale feh --bg-scale ~/Pictures/low-poly-wallpaper-1.jpg
@@ -132,7 +133,7 @@ bindsym $mod+6 workspace $work6
 bindsym $mod+7 workspace $work7
 bindsym $mod+8 workspace $work8
 bindsym $mod+9 workspace $work9
-#bindsym $mod+0 workspace 10
+bindsym $mod+0 workspace $work0
 
 # Move container focused to certain workspace
 bindsym $mod+Shift+1 move container to workspace $work1
@@ -144,7 +145,7 @@ bindsym $mod+Shift+6 move container to workspace $work6
 bindsym $mod+Shift+7 move container to workspace $work7
 bindsym $mod+Shift+8 move container to workspace $work8
 bindsym $mod+Shift+9 move container to workspace $work9
-# bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+0 move container to workspace $work0
 
 # Move workspace to other screen
 bindsym $mod+m move workspace to output left
