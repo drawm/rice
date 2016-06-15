@@ -72,6 +72,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym Print exec scrot
 bindsym $mod+Print exec scrot -s
 
+bindsym $mod+c --release exec gnome-screenshot -a
 
 ## Key bindings
 ##
