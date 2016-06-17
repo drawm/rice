@@ -87,3 +87,21 @@ alias git=hub
 ## HUB
 fpath=(~/.zsh/completions $fpath) 
 autoload -U compinit && compinit
+
+## Utils
+
+mkcd (){
+    mkdir -p "$1" && cd -P "$_"
+}
+
+google(){
+	xdg-open "https://www.google.ca/search?q=$1"
+}
+
+touchr(){
+	if [ $# -lt 1 ]; then
+		echo "Usage: touchr <path to file>"
+		return
+	fi
+	mkdir -p "$(dirname "$1")" && command touch "$1"
+}
