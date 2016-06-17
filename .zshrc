@@ -82,3 +82,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias git=hub
+
+## HUB
+fpath=(~/.zsh/completions $fpath) 
+autoload -U compinit && compinit
