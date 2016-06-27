@@ -62,13 +62,22 @@ new_window pixel 2
 
 
 ## Media keys
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-bindsym XF86AudioMute        exec amixer -q set Master mute
+#bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+#bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+#bindsym XF86AudioMute        exec amixer -q set Master mute
 
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+## Media Key
+# Pulse Audio controls
+bindsym $mod+Control+r exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym $mod+Control+q exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym $mod+Control+w exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym $mod+Control+e exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+bindsym $mod+Control+d exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym $mod+Control+s exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym $mod+Control+a exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+bindsym $mod+Control+f exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
 
 bindsym Print exec scrot
 bindsym $mod+Print exec scrot -s
@@ -81,7 +90,7 @@ bindsym $mod+c --release exec gnome-screenshot -a
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 -padding 50 -opacity "100" -bw 2 -bc "#f1fa8c" -bg "#44475a" -fg "#8BE9FD" -hlbg "#44475a" -hlfg "#FF7AC6" -font "Inconsolata for Powerline 26"
 
 # Lock / Pack
-bindsym $mod+p	exec i3lock-fancy -pg --font Droid-Sans-Mono
+bindsym $mod+p	exec i3lock-fancy -p --font Droid-Sans-Mono
 
 # Floating mode
 floating_modifier $mod
@@ -119,7 +128,6 @@ bindsym $mod+space       focus mode_toggle
 bindsym $mod+a       focus parent
 bindsym $mod+Return  exec xfce4-terminal --hide-menubar
 bindsym $mod+Shift+q kill
-
 
 ## Workspaces
 
