@@ -40,7 +40,7 @@ smart_gaps on
 ## Workspaces
 set $work1 " 1"
 set $work2 " 2"
-set $work3 " 3"
+set $work3 " 3"
 set $work4 "4"
 set $work5 "5"
 set $work6 "6"
