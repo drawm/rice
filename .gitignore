@@ -4,3 +4,4 @@
 
 ~.gitignore
 ~.conig/*
+.config/xfce4/*
