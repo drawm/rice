@@ -1,11 +1,11 @@
 ## i3 ModKeys
 set $mod  Mod4
-set $cmod Mod1 
+set $cmod Mod1
 
-set $Left j
-set $Up k
-set $Down l
-set $Right semicolon
+set $Left h
+set $Up j
+set $Down k
+set $Right l
 
 ## Font for window titles.
 
@@ -32,10 +32,11 @@ client.urgent           #662B32 #58252B #F4BF75 #58252B
 
 
 # Gaps
-gaps inner 10
-gaps outer 10
-smart_gaps on
+gaps inner 0
+gaps outer 0
 
+mouse_warping none
+focus_follows_mouse no
 
 ## Workspaces
 set $work1 " 1"
@@ -87,7 +88,7 @@ bindsym $mod+c --release exec gnome-screenshot -a
 ## Key bindings
 ##
 # Open Rofi
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 -padding 50 -opacity "100" -bw 2 -bc "#f1fa8c" -bg "#44475a" -fg "#8BE9FD" -hlbg "#44475a" -hlfg "#FF7AC6" -font "Inconsolata for Powerline 26"
+bindsym $mod+space exec rofi -show run -config ~/.config/rofi/conf
 
 # Lock / Pack
 bindsym $mod+p	exec i3lock-fancy -p --font Droid-Sans-Mono
@@ -108,7 +109,7 @@ bindsym $mod+Shift+$Up    move up
 bindsym $mod+Shift+$Right move right
 
 # Horizontal splitting
-bindsym $mod+h split h
+bindsym $mod+b split h
 # Vertical splitting
 bindsym $mod+v split v
 
@@ -121,8 +122,8 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Tiling / floating
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space       focus mode_toggle
+bindsym $mod+Shift+t floating toggle
+bindsym $mod+t focus mode_toggle
 
 # General
 bindsym $mod+a       focus parent
@@ -132,6 +133,17 @@ bindsym $mod+Shift+q kill
 ## Workspaces
 
 # Move workspaces
+bindsym $mod+F1 workspace $work1
+bindsym $mod+F2 workspace $work2
+bindsym $mod+F3 workspace $work3
+bindsym $mod+F4 workspace $work4
+bindsym $mod+F5 workspace $work5
+bindsym $mod+F6 workspace $work6
+bindsym $mod+F7 workspace $work7
+bindsym $mod+F8 workspace $work8
+bindsym $mod+F9 workspace $work9
+bindsym $mod+F10 workspace $work0
+
 bindsym $mod+1 workspace $work1
 bindsym $mod+2 workspace $work2
 bindsym $mod+3 workspace $work3
@@ -144,6 +156,17 @@ bindsym $mod+9 workspace $work9
 bindsym $mod+0 workspace $work0
 
 # Move container focused to certain workspace
+bindsym $mod+Shift+F1 move container to workspace $work1
+bindsym $mod+Shift+F2 move container to workspace $work2
+bindsym $mod+Shift+F3 move container to workspace $work3
+bindsym $mod+Shift+F4 move container to workspace $work4
+bindsym $mod+Shift+F5 move container to workspace $work5
+bindsym $mod+Shift+F6 move container to workspace $work6
+bindsym $mod+Shift+F7 move container to workspace $work7
+bindsym $mod+Shift+F8 move container to workspace $work8
+bindsym $mod+Shift+F9 move container to workspace $work9
+bindsym $mod+Shift+F10 move container to workspace $work0
+
 bindsym $mod+Shift+1 move container to workspace $work1
 bindsym $mod+Shift+2 move container to workspace $work2
 bindsym $mod+Shift+3 move container to workspace $work3
