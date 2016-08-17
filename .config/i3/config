@@ -53,7 +53,7 @@ set $work0 " 0"
 ## Startup applications
 exec_always feh --bg-scale feh --bg-scale ~/Pictures/low-poly-wallpaper-1.jpg
 exec_always compton --config ~/.config/compton/config -cb
-exec_always xrandr --output HDMI2 --left-of HDMI3
+exec_always xrandr --output HDMI3 --left-of HDMI2
 #exec_always yabar
 
 
