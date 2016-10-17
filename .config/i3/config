@@ -1,6 +1,6 @@
 ## i3 ModKeys
+set $Alt Mod1
 set $mod  Mod4
-set $cmod Mod1
 
 set $Left h
 set $Up k
@@ -106,11 +106,17 @@ bindsym $mod+$Down  focus down
 bindsym $mod+$Up    focus up
 bindsym $mod+$Right focus right
 
-# Moving keys
+# Moving window keys
 bindsym $mod+Shift+$Left  move left
 bindsym $mod+Shift+$Down  move down
 bindsym $mod+Shift+$Up    move up
 bindsym $mod+Shift+$Right move right
+
+# Moving workspace keys
+bindsym $mod+$Alt+$Left  move workspace to output left
+bindsym $mod+$Alt+$Down  move workspace to outputdown
+bindsym $mod+$Alt+$Up    move workspace to outputup
+bindsym $mod+$Alt+$Right move workspace to output right
 
 # Horizontal splitting
 bindsym $mod+b split h
