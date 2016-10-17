@@ -3,13 +3,15 @@ set $mod  Mod4
 set $cmod Mod1
 
 set $Left h
-set $Up j
-set $Down k
+set $Up k
+set $Down j
 set $Right l
 
 ## Font for window titles.
 
-
+## Change keyboard layout
+bindsym $mod+minus exec setxkbmap -layout ca -variant eng
+bindsym $mod+plus exec setxkbmap -layout ca -variant fr
 
 ## Colors
 set $back               #1d1F21
@@ -51,8 +53,10 @@ set $work9 " 9"
 set $work0 " 0"
 
 ## Startup applications
-exec_always feh --bg-scale feh --bg-scale ~/Pictures/low-poly-wallpaper-1.jpg
+exec_always feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
 exec_always compton --config ~/.config/compton/config -cb
+
+exec_always xrandr --output HDMI2 --right-of HDMI3
 exec_always xrandr --output HDMI3 --left-of HDMI2
 #exec_always yabar
 
@@ -128,7 +132,7 @@ bindsym $mod+t focus mode_toggle
 # General
 bindsym $mod+a       focus parent
 bindsym $mod+Return  exec xfce4-terminal --hide-menubar
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 ## Workspaces
 
@@ -217,7 +221,7 @@ mode "resize" {
 }
 bar {
 	status_command i3status
-	font pango:DejaVu Sans Mono, Awesome 8
+	font pango:Droid Sans Mono, Awesome 8
 	colors {
 	    separator #F6F6F6
 	    background #29383E
@@ -234,3 +238,5 @@ client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
 client.unfocused #073642 #073642 #93a1a1 #586e75
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
+workspace $work1 output HDMI3
+workspace $work2 output HDMI2
