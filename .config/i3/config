@@ -53,6 +53,7 @@ set $work9 " 9"
 set $work0 " 0"
 
 ## Startup applications
+bindsym $mod+o exec feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
 exec_always feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
 exec_always compton --config ~/.config/compton/config -cb
 
@@ -245,4 +246,19 @@ client.unfocused #073642 #073642 #93a1a1 #586e75
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
 workspace $work1 output HDMI3
-workspace $work2 output HDMI2
+workspace $work2 output HDMI3
+workspace $work3 output HDMI3
+workspace $work4 output HDMI3
+workspace $work5 output HDMI3
+workspace $work6 output HDMI3
+
+workspace $work7 output HDMI2
+workspace $work8 output HDMI2
+workspace $work9 output HDMI2
+workspace $work0 output HDMI2
+
+
+
+exec --no-startup-id i3-msg $work2"; exec /usr/bin/webstorm"
+exec --no-startup-id i3-msg $work9"; exec /usr/bin/slack"
+exec --no-startup-id i3-msg $work0"; exec /usr/bin/spotify"
