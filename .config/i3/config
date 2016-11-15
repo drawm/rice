@@ -75,8 +75,8 @@ new_window pixel 2
 # Media Key
 ## Pulse Audio controls
 
-set $mode_audio Sound control (0) Mute toggle, (-) Volume Down, (+) Volume Up 
-mode "$mode_audio" {
+set $mode_sound Sound control (0) Mute toggle, (-) Volume Down, (+) Volume Up 
+mode "$mode_sound" {
 	bindsym plus exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 	bindsym minus exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 	bindsym 0 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
@@ -84,7 +84,7 @@ mode "$mode_audio" {
 	bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+d mode "$mode_audio"
+bindsym $mod+s mode "$mode_sound"
 
 
 set $mode_media Media control (0) Pause toggle, (-) Previous, (+) Next 
