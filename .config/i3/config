@@ -60,8 +60,8 @@ set $work9 " 9"
 set $work0 " 0"
 
 ## Startup applications
-bindsym $mod+o exec feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
-exec_always feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
+#bindsym $mod+o exec feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
+#exec_always feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
 exec_always compton --config ~/.config/compton/config -cb
 
 exec_always xrandr --output HDMI2 --auto --right-of HDMI3
@@ -110,7 +110,7 @@ bindsym $mod+c --release exec gnome-screenshot -a
 bindsym $mod+space exec rofi -show run -config ~/.config/rofi/conf
 
 # Lock / Pack
-bindsym $mod+p	exec i3lock-fancy -p --font Droid-Sans-Mono
+set $Locker i3lock-fancy -p --font Droid-Sans-Mono
 
 # Floating mode
 floating_modifier $mod
@@ -223,11 +223,24 @@ bindsym $mod+w move workspace to output left
 #exec --no-startup-id i3-msg 'workspace $work7; exec slack; workspace $work1'
 #exec --no-startup-id i3-msg 'workspace $work7; exec slack; workspace $work9; exec spotify; workspace $work1'
 
-## i3 Session Keys
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend && $Locker, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate && $Locker, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
-bindsym $mod+Shift+c reload
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Escape mode "$mode_system"
+
+## i3 Session Keys
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+r mode "resize"
 
 
@@ -281,7 +294,15 @@ workspace $work9 output HDMI2
 workspace $work0 output HDMI2
 
 
+# Chrome in tab 2, always
+ assign [instance="chromium"] $work7
+
+# # Slack in tab 3, always
+assign [instance="slack"] $work9
+
+exec --no-startup-id ~/.config/i3/wallpaper.sh
 
 exec --no-startup-id i3-msg $work2"; exec /usr/bin/webstorm"
 exec --no-startup-id i3-msg $work9"; exec /usr/bin/slack"
 exec --no-startup-id i3-msg $work0"; exec /usr/bin/spotify"
+
