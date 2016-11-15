@@ -10,8 +10,15 @@ set $Right l
 ## Font for window titles.
 
 ## Change keyboard layout
-bindsym $mod+minus exec setxkbmap -layout ca -variant eng
-bindsym $mod+plus exec setxkbmap -layout ca -variant fr
+set $mode_language Keyboard (f)r_ca, (e)n_us
+mode "$mode_language" {
+  	bindsym e exec setxkbmap -layout ca -variant eng, mode "default"
+	bindsym f exec setxkbmap -layout ca -variant fr, mode "default"
+
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+shift+space mode "$mode_language"
 
 ## Colors
 set $back               #1d1F21
@@ -57,32 +64,39 @@ bindsym $mod+o exec feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper
 exec_always feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
 exec_always compton --config ~/.config/compton/config -cb
 
-exec_always xrandr --output HDMI2 --right-of HDMI3
-exec_always xrandr --output HDMI3 --left-of HDMI2
-#exec_always yabar
-
+exec_always xrandr --output HDMI2 --auto --right-of HDMI3
+exec_always xrandr --output HDMI3 --auto --left-of HDMI2
 
 ## i3 Options
 hide_edge_borders both
 new_window pixel 2
 
 
-## Media keys
-#bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
-#bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-#bindsym XF86AudioMute        exec amixer -q set Master mute
+# Media Key
+## Pulse Audio controls
 
-## Media Key
-# Pulse Audio controls
-bindsym $mod+Control+r exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym $mod+Control+q exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym $mod+Control+w exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-bindsym $mod+Control+e exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+set $mode_audio Sound control (0) Mute toggle, (-) Volume Down, (+) Volume Up 
+mode "$mode_audio" {
+	bindsym plus exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+	bindsym minus exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+	bindsym 0 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-bindsym $mod+Control+d exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
-bindsym $mod+Control+s exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
-bindsym $mod+Control+a exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
-bindsym $mod+Control+f exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+d mode "$mode_audio"
+
+
+set $mode_media Media control (0) Pause toggle, (-) Previous, (+) Next 
+mode "$mode_media" {
+	bindsym 0 exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+	bindsym minus exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+	bindsym plus exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+m mode "$mode_media"
 
 
 bindsym Print exec scrot
@@ -128,13 +142,22 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # Change layout mode
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+set $mode_layout Layout (s) stacking, (w) tabbed, (e) toggle split, (t) focus mode_toggle, (T) float toggle
+mode "$mode_layout" {
+	bindsym s layout stacking
+	bindsym w layout tabbed
+	bindsym e layout toggle split
 
-# Tiling / floating
-bindsym $mod+Shift+t floating toggle
-bindsym $mod+t focus mode_toggle
+	# Tiling / floating
+	bindsym Shift+t floating toggle
+	bindsym t focus mode_toggle
+
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+t mode "$mode_layout"
+
+
 
 # General
 bindsym $mod+a       focus parent
@@ -190,7 +213,7 @@ bindsym $mod+Shift+9 move container to workspace $work9
 bindsym $mod+Shift+0 move container to workspace $work0
 
 # Move workspace to other screen
-bindsym $mod+m move workspace to output left
+bindsym $mod+w move workspace to output left
 
 # Assign application to workspace
 #assign [class="spotify"] → $work9
