@@ -54,7 +54,7 @@ set $work3 " 3"
 set $work4 "4"
 set $work5 "5"
 set $work6 "6"
-set $work7 " 7"
+set $work7 " 7"
 set $work8 "8"
 set $work9 " 9"
 set $work0 " 0"
@@ -293,16 +293,14 @@ workspace $work8 output HDMI2
 workspace $work9 output HDMI2
 workspace $work0 output HDMI2
 
-
-# Chrome in tab 2, always
- assign [instance="chromium"] $work7
-
-# # Slack in tab 3, always
+# Application assigned to workspaces
+assign [instance="chromium"] $work7
 assign [instance="slack"] $work9
+for_window [class="Spotify"] move to workspace $work0
 
 exec --no-startup-id ~/.config/i3/wallpaper.sh
 
-exec --no-startup-id i3-msg $work2"; exec /usr/bin/webstorm"
-exec --no-startup-id i3-msg $work9"; exec /usr/bin/slack"
-exec --no-startup-id i3-msg $work0"; exec /usr/bin/spotify"
+exec --no-startup-id exec /usr/bin/webstorm
+exec --no-startup-id exec /usr/bin/slack
+exec --no-startup-id exec /usr/bin/spotify
 
