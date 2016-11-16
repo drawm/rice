@@ -297,10 +297,10 @@ workspace $work0 output HDMI2
 assign [instance="chromium"] $work7
 assign [instance="slack"] $work9
 for_window [class="Spotify"] move to workspace $work0
+for_window [class="webstorm"] move to workspace $work2
 
 exec --no-startup-id ~/.config/i3/wallpaper.sh
 
 exec --no-startup-id exec /usr/bin/webstorm
 exec --no-startup-id exec /usr/bin/slack
 exec --no-startup-id exec /usr/bin/spotify
-
