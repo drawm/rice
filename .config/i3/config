@@ -1,15 +1,24 @@
 ## i3 ModKeys
+set $Alt Mod1
 set $mod  Mod4
-set $cmod Mod1 
 
-set $Left j
+set $Left h
 set $Up k
-set $Down l
-set $Right semicolon
+set $Down j
+set $Right l
 
 ## Font for window titles.
 
+## Change keyboard layout
+set $mode_language Keyboard (f)r_ca, (e)n_us
+mode "$mode_language" {
+  	bindsym e exec setxkbmap -layout ca -variant eng, mode "default"
+	bindsym f exec setxkbmap -layout ca -variant fr, mode "default"
 
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+shift+space mode "$mode_language"
 
 ## Colors
 set $back               #1d1F21
@@ -32,51 +41,62 @@ client.urgent           #662B32 #58252B #F4BF75 #58252B
 
 
 # Gaps
-gaps inner 10
-gaps outer 10
-smart_gaps on
+gaps inner 0
+gaps outer 0
 
+mouse_warping none
+focus_follows_mouse no
 
 ## Workspaces
 set $work1 " 1"
-set $work2 " 2"
-set $work3 " 3"
+set $work2 " 2"
+set $work3 " 3"
 set $work4 "4"
 set $work5 "5"
 set $work6 "6"
-set $work7 " 7"
-set $work8 "8"
+set $work7 " 7"
+set $work8 "8"
 set $work9 " 9"
 set $work0 " 0"
 
 ## Startup applications
-exec_always feh --bg-scale feh --bg-scale ~/Pictures/low-poly-wallpaper-1.jpg
+#bindsym $mod+o exec feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
+#exec_always feh --bg-tile --no-xinerama --randomize ~/Pictures/wallpaper/*
 exec_always compton --config ~/.config/compton/config -cb
-exec_always xrandr --output HDMI2 --left-of HDMI3
-#exec_always yabar
 
+exec_always xrandr --output HDMI2 --auto --right-of HDMI3
+exec_always xrandr --output HDMI3 --auto --left-of HDMI2
 
 ## i3 Options
 hide_edge_borders both
 new_window pixel 2
 
 
-## Media keys
-#bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
-#bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-#bindsym XF86AudioMute        exec amixer -q set Master mute
+# Media Key
+## Pulse Audio controls
 
-## Media Key
-# Pulse Audio controls
-bindsym $mod+Control+r exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym $mod+Control+q exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym $mod+Control+w exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-bindsym $mod+Control+e exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+set $mode_sound Sound control (0) Mute toggle, (-) Volume Down, (+) Volume Up 
+mode "$mode_sound" {
+	bindsym plus exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+	bindsym minus exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+	bindsym 0 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-bindsym $mod+Control+d exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
-bindsym $mod+Control+s exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
-bindsym $mod+Control+a exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
-bindsym $mod+Control+f exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+s mode "$mode_sound"
+
+
+set $mode_media Media control (0) Pause toggle, (-) Previous, (+) Next 
+mode "$mode_media" {
+	bindsym 0 exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+	bindsym minus exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+	bindsym plus exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+m mode "$mode_media"
 
 
 bindsym Print exec scrot
@@ -87,10 +107,10 @@ bindsym $mod+c --release exec gnome-screenshot -a
 ## Key bindings
 ##
 # Open Rofi
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 -padding 50 -opacity "100" -bw 2 -bc "#f1fa8c" -bg "#44475a" -fg "#8BE9FD" -hlbg "#44475a" -hlfg "#FF7AC6" -font "Inconsolata for Powerline 26"
+bindsym $mod+space exec rofi -show run -config ~/.config/rofi/conf
 
 # Lock / Pack
-bindsym $mod+p	exec i3lock-fancy -p --font Droid-Sans-Mono
+set $Locker i3lock-fancy -p --font Droid-Sans-Mono
 
 # Floating mode
 floating_modifier $mod
@@ -101,14 +121,20 @@ bindsym $mod+$Down  focus down
 bindsym $mod+$Up    focus up
 bindsym $mod+$Right focus right
 
-# Moving keys
+# Moving window keys
 bindsym $mod+Shift+$Left  move left
 bindsym $mod+Shift+$Down  move down
 bindsym $mod+Shift+$Up    move up
 bindsym $mod+Shift+$Right move right
 
+# Moving workspace keys
+bindsym $mod+$Alt+$Left  move workspace to output left
+bindsym $mod+$Alt+$Down  move workspace to outputdown
+bindsym $mod+$Alt+$Up    move workspace to outputup
+bindsym $mod+$Alt+$Right move workspace to output right
+
 # Horizontal splitting
-bindsym $mod+h split h
+bindsym $mod+b split h
 # Vertical splitting
 bindsym $mod+v split v
 
@@ -116,22 +142,42 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # Change layout mode
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+set $mode_layout Layout (s) stacking, (w) tabbed, (e) toggle split, (t) focus mode_toggle, (T) float toggle
+mode "$mode_layout" {
+	bindsym s layout stacking
+	bindsym w layout tabbed
+	bindsym e layout toggle split
 
-# Tiling / floating
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space       focus mode_toggle
+	# Tiling / floating
+	bindsym Shift+t floating toggle
+	bindsym t focus mode_toggle
+
+	bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+t mode "$mode_layout"
+
+
 
 # General
 bindsym $mod+a       focus parent
 bindsym $mod+Return  exec xfce4-terminal --hide-menubar
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 ## Workspaces
 
 # Move workspaces
+bindsym $mod+F1 workspace $work1
+bindsym $mod+F2 workspace $work2
+bindsym $mod+F3 workspace $work3
+bindsym $mod+F4 workspace $work4
+bindsym $mod+F5 workspace $work5
+bindsym $mod+F6 workspace $work6
+bindsym $mod+F7 workspace $work7
+bindsym $mod+F8 workspace $work8
+bindsym $mod+F9 workspace $work9
+bindsym $mod+F10 workspace $work0
+
 bindsym $mod+1 workspace $work1
 bindsym $mod+2 workspace $work2
 bindsym $mod+3 workspace $work3
@@ -144,6 +190,17 @@ bindsym $mod+9 workspace $work9
 bindsym $mod+0 workspace $work0
 
 # Move container focused to certain workspace
+bindsym $mod+Shift+F1 move container to workspace $work1
+bindsym $mod+Shift+F2 move container to workspace $work2
+bindsym $mod+Shift+F3 move container to workspace $work3
+bindsym $mod+Shift+F4 move container to workspace $work4
+bindsym $mod+Shift+F5 move container to workspace $work5
+bindsym $mod+Shift+F6 move container to workspace $work6
+bindsym $mod+Shift+F7 move container to workspace $work7
+bindsym $mod+Shift+F8 move container to workspace $work8
+bindsym $mod+Shift+F9 move container to workspace $work9
+bindsym $mod+Shift+F10 move container to workspace $work0
+
 bindsym $mod+Shift+1 move container to workspace $work1
 bindsym $mod+Shift+2 move container to workspace $work2
 bindsym $mod+Shift+3 move container to workspace $work3
@@ -156,7 +213,7 @@ bindsym $mod+Shift+9 move container to workspace $work9
 bindsym $mod+Shift+0 move container to workspace $work0
 
 # Move workspace to other screen
-bindsym $mod+m move workspace to output left
+bindsym $mod+w move workspace to output left
 
 # Assign application to workspace
 #assign [class="spotify"] → $work9
@@ -166,11 +223,24 @@ bindsym $mod+m move workspace to output left
 #exec --no-startup-id i3-msg 'workspace $work7; exec slack; workspace $work1'
 #exec --no-startup-id i3-msg 'workspace $work7; exec slack; workspace $work9; exec spotify; workspace $work1'
 
-## i3 Session Keys
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend && $Locker, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate && $Locker, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
-bindsym $mod+Shift+c reload
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Escape mode "$mode_system"
+
+## i3 Session Keys
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+r mode "resize"
 
 
@@ -194,7 +264,7 @@ mode "resize" {
 }
 bar {
 	status_command i3status
-	font pango:DejaVu Sans Mono, Awesome 8
+	font pango:Droid Sans Mono, Awesome 8
 	colors {
 	    separator #F6F6F6
 	    background #29383E
@@ -211,3 +281,26 @@ client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
 client.unfocused #073642 #073642 #93a1a1 #586e75
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
+workspace $work1 output HDMI3
+workspace $work2 output HDMI3
+workspace $work3 output HDMI3
+workspace $work4 output HDMI3
+workspace $work5 output HDMI3
+workspace $work6 output HDMI3
+
+workspace $work7 output HDMI2
+workspace $work8 output HDMI2
+workspace $work9 output HDMI2
+workspace $work0 output HDMI2
+
+# Application assigned to workspaces
+assign [instance="chromium"] $work7
+assign [instance="slack"] $work9
+for_window [class="Spotify"] move to workspace $work0
+for_window [class="webstorm"] move to workspace $work2
+
+exec --no-startup-id ~/.config/i3/wallpaper.sh
+
+exec --no-startup-id exec /usr/bin/webstorm
+exec --no-startup-id exec /usr/bin/slack
+exec --no-startup-id exec /usr/bin/spotify

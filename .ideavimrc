@@ -1,1 +1,29 @@
 set clipboard+=unnamed
+set surround
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+
+
+let b:surround_{char2nr('p')} = "(\n\t\r\n)"
+let b:surround_{char2nr('P')} = "{\n\t\r\n}"
+let b:surround_{char2nr('S')} = "[\n\t\r\n]"
+let b:surround_{char2nr('c')} = "console.log(\r)"
+let b:surround_{char2nr('a')} = "const PLACEHOLDER = () => {\n\r\n};"
+let b:surround_{char2nr('F')} = "(function() {\n\r\n})();"
+let b:surround_{char2nr('f')} = "function PLACEHOLDER() {\n\r\n}"
+let b:surround_{char2nr('i')} = "it('', function() {\n\r\n});"
+let b:surround_{char2nr('I')} = "if (true) {\n\r\n}"
+let b:surround_{char2nr('n')} = "{{/*\n\r\n*/}}"
+let b:surround_{char2nr('d')} = "describe('', function() {\n\r\n});"
+let b:surround_{char2nr('D')} = "describe('', () => {\n\r\n})"
+
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall

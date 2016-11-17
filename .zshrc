@@ -84,6 +84,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias git=hub
 
+export EDITOR=vim
+
 ## HUB
 fpath=(~/.zsh/completions $fpath) 
 autoload -U compinit && compinit
@@ -105,3 +107,9 @@ touchr(){
 	fi
 	mkdir -p "$(dirname "$1")" && command touch "$1"
 }
+
+export NVM_DIR="/home/dplaurin/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+source /usr/share/nvm/init-nvm.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
