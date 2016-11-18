@@ -102,7 +102,7 @@ bindsym $mod+m mode "$mode_media"
 bindsym Print exec scrot
 bindsym $mod+Print exec scrot -s
 
-bindsym $mod+c --release exec gnome-screenshot -a
+bindsym $mod+c --release exec maim --select --format png ~/Pictures/screenshot/$(date +%F-%T).png
 
 ## Key bindings
 ##
